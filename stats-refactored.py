@@ -1,10 +1,8 @@
 import re
-from wilson import wilson
 import math
 import operator
 import random
 import sys
-import confidence_interval
 from threading import Thread
 import datetime
 import calendar
@@ -209,27 +207,6 @@ def games_until_legend(winrate=0.7):
     global current_rank, current_subrank, stars_left
     games_required = stars_left / ((winrate*2)-1)
     return games_required
-
-def games_until_legend_old(winrate=0.7):
-    
-
-    if winrate < 0.5:
-        return -1 # need a positive win rate
-
-    global current_rank, current_subrank, stars_left
-    
-    games = [] # how many games until legend
-    # run 1000 sims
-
-
-    for i in range(0, 2500):
-        wr = winrate
-        streak = 0
-        sl = stars_left
-        t = Thread(target=sim_one, args=(wr, sl, games,))
-        t.start()
-
-    return math.ceil(confidence_interval.confidence_interval(games)[1])
 
 def get_stats(deck):
     global wins, played, ranks
